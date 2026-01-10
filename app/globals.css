@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0A192F;
+  --color-light-navy: #112240;
+  --color-lightest-navy: #233554;
+  --color-slate: #8892B0;
+  --color-light-slate: #a8b2d1;
+  --color-lightest-slate: #ccd6f6;
+  --color-white: #e6f1ff;
+  --color-cyan: #64FFDA;
+}
+
+/* Force dark mode to work with .dark class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Light Mode */
+  --background: #ffffff;
+  --foreground: #0A192F;
+  --card-bg: #f4f4f5;
+  --text-primary: #0A192F;
+  --text-secondary: #475569;
+}
+
+.dark {
+  /* Dark Mode (Navy Theme) */
+  --background: #0A192F;
+  --foreground: #8892B0;
+  --card-bg: #112240;
+  --text-primary: #ccd6f6;
+  --text-secondary: #8892B0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-space), sans-serif;
+}
+
+::selection {
+  background-color: var(--color-lightest-navy);
+  color: var(--color-cyan);
+}
