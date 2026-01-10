@@ -19,7 +19,7 @@ const Projects = () => {
                                 src="/project-healthy-recipe.png"
                                 alt="Healthy Recipe Finder Interface"
                                 fill
-                                className="object-cover object-top"
+                                className="object-cover object-top blur-[3px] hover:blur-0 transition-all duration-500"
                                 sizes="(max-width: 768px) 100vw, 60vw"
                             />
                         </div>

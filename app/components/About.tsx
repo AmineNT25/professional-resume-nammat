@@ -1,5 +1,5 @@
 const About = () => {
-    const skills = ["JavaScript (ES6+)", "React", "Node.js", "Express", "MongoDB", "MySQL", "Git", "Tailwind CSS"];
+    const skills = ["HTML", "CSS", "JavaScript (ES6+)", "React", "Git", "Tailwind CSS"];
 
     return (
         <section id="about" className="py-32 max-w-7xl mx-auto px-6 sm:px-12">
