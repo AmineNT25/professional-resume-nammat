@@ -45,7 +45,7 @@ const Experience = () => {
                         <div>
                             <h4 className="text-teal-400 font-mono text-sm mb-2">Technical</h4>
                             <p className="text-slate-300 leading-relaxed">
-                                HTML5, CSS3, JavaScript, React, Node.js, Express, MongoDB, MySQL, Git, VS Code.
+                                HTML5, CSS3, JavaScript, React, Node.js, Express, MongoDB, MySQL, Git, Antigravity.
                             </p>
                         </div>
                         <div>
@@ -57,7 +57,7 @@ const Experience = () => {
                         <div>
                             <h4 className="text-teal-400 font-mono text-sm mb-2">Languages</h4>
                             <p className="text-slate-300">
-                                Arabe (Native), Français, Anglais
+                                Arabe (Native), French (Fluent), English (Fluent)
                             </p>
                         </div>
                     </div>

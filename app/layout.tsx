@@ -18,6 +18,9 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Ahmed Amine Nammat | Full Stack Developer",
   description: "Portfolio of Ahmed Amine Nammat, a Web Development Trainee specializing in modern web applications.",
+  icons: {
+    icon: "/logo-dark-mode.png",
+  },
 };
 
 import InteractiveBackground from "./components/InteractiveBackground";

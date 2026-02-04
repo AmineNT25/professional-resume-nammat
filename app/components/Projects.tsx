@@ -13,17 +13,17 @@ const Projects = () => {
                 {/* Project 1: Featured (Left Aligned Visual, Right Content) */}
                 <div className="relative grid grid-cols-1 md:grid-cols-12 gap-8 items-center group">
                     {/* Project Visual Area */}
-                    <div className="md:col-span-7 relative rounded-xl overflow-hidden shadow-2xl bg-teal-600/10 dark:bg-navy aspect-video group-hover:scale-[1.02] transition-transform duration-500">
+                    <div className="group/image md:col-span-7 relative rounded-xl overflow-hidden shadow-2xl bg-teal-600/10 dark:bg-navy aspect-video group-hover:scale-[1.02] transition-transform duration-500">
                         <div className="absolute inset-0">
                             <Image
                                 src="/project-healthy-recipe.png"
                                 alt="Healthy Recipe Finder Interface"
                                 fill
-                                className="object-cover object-top blur-[3px] hover:blur-0 transition-all duration-500"
+                                className="object-cover object-top blur-[3px] group-hover/image:blur-0 transition-all duration-500"
                                 sizes="(max-width: 768px) 100vw, 60vw"
                             />
                         </div>
-                        <div className="absolute inset-0 bg-teal-600/10 dark:bg-navy/10 mix-blend-multiply hover:mix-blend-normal transition-all duration-300"></div>
+                        <div className="absolute inset-0 bg-teal-600/10 dark:bg-navy/10 mix-blend-multiply group-hover/image:mix-blend-normal transition-all duration-300"></div>
                     </div>
 
                     {/* Project Content Area */}
