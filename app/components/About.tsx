@@ -1,5 +1,5 @@
 const About = () => {
-    const skills = ["HTML", "CSS", "JavaScript (ES6+)", "React", "Git", "Tailwind CSS"];
+    const skills = ["NextJS", "Laravel", "NodeJS", "React", "Git", "Tailwind CSS", "MySQL", "MongoDB"];
 
     return (
         <section id="about" className="py-32 max-w-7xl mx-auto px-6 sm:px-12">
@@ -13,7 +13,7 @@ const About = () => {
 
                     <div className="text-secondary dark:text-slate text-lg leading-relaxed space-y-6">
                         <p>
-                            Web Development Trainee at OFPPT (CMC Souss Massa), with strong knowledge in frontend and backend development.
+                            Web Development Specialized technician at OFPPT (CMC Souss Massa), with strong knowledge in frontend and backend development.
                         </p>
                         <p>
                             Capable of designing modern, dynamic, and responsive web applications. Motivated, autonomous, and eager to strengthen my technical skills through an internship or a first position in web development.

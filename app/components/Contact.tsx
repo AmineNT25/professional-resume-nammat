@@ -1,4 +1,37 @@
+'use client';
+
+import { useState } from 'react';
+
 const Contact = () => {
+    const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const formData = new FormData(e.currentTarget);
+            const response = await fetch('https://formspree.io/f/xlgpdbdz', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                setSubmitted(true);
+                e.currentTarget.reset();
+                setTimeout(() => setSubmitted(false), 3000);
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <section id="contact" className="py-20 md:py-32 max-w-3xl mx-auto px-6 text-center">
             <span className="text-teal-600 dark:text-cyan font-mono text-lg mb-4 block">04. What's Next?</span>
@@ -10,12 +43,41 @@ const Contact = () => {
                 Whether you have a question or just want to say hi, I'll try my best to get back to you!
             </p>
 
-            <a
-                href="mailto:ahmedaminenammat021105@gmail.com"
-                className="inline-block px-8 py-4 text-sm font-mono text-teal-600 dark:text-cyan border border-teal-600 dark:border-cyan rounded-md hover:bg-teal-600/10 dark:hover:bg-cyan/10 transition-colors"
-            >
-                Say Hello
-            </a>
+            <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-4 mb-12">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                    className="w-full px-4 py-2 bg-light-navy dark:bg-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors"
+                />
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    required
+                    className="w-full px-4 py-2 bg-light-navy dark:bg-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors"
+                />
+                <textarea
+                    name="message"
+                    placeholder="Your Message"
+                    required
+                    rows={4}
+                    className="w-full px-4 py-2 bg-light-navy dark:bg-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors resize-none"
+                />
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="inline-block px-8 py-4 text-sm font-mono text-teal-600 dark:text-cyan border border-teal-600 dark:border-cyan rounded-md hover:bg-teal-600/10 dark:hover:bg-cyan/10 transition-colors disabled:opacity-50"
+                >
+                    {loading ? 'Sending...' : 'Send Message'}
+                </button>
+                {submitted && (
+                    <p className="text-green-600 dark:text-green-400 font-mono text-sm">
+                        Message sent successfully!
+                    </p>
+                )}
+            </form>
             <div className="mt-20 flex justify-center gap-8">
                 <a
                     href="https://github.com/AmineNT25/"

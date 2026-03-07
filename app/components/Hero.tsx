@@ -29,7 +29,7 @@ const Hero = () => {
 
                     <div className="mt-8 max-w-2xl mx-auto">
                         <p className="text-secondary dark:text-slate text-xl leading-relaxed">
-                            I build pixel-perfect, performant web experiences. Currently exploring the intersection of design and engineering at <span className="text-teal-600 dark:text-cyan">OFPPT (CMC Souss Massa)</span>.
+                            I build pixel-perfect, performant web experiences. Currently exploring the intersection of design and engineering.
                         </p>
                     </div>
 

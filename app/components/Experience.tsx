@@ -45,7 +45,7 @@ const Experience = () => {
                         <div>
                             <h4 className="text-teal-400 font-mono text-sm mb-2">Technical</h4>
                             <p className="text-slate-300 leading-relaxed">
-                                HTML5, CSS3, JavaScript, React, Node.js, Express, MongoDB, MySQL, Git, Antigravity.
+                                Tailwind CSS 4, NextJS 15, ReactJS 19, Node.js, Express, MongoDB, MySQL, Git, Antigravity, VsCode.
                             </p>
                         </div>
                         <div>
