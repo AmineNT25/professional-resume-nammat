@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const Contact = () => {
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const formRef = useRef<HTMLFormElement>(null);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,7 +23,7 @@ const Contact = () => {
 
             if (response.ok) {
                 setSubmitted(true);
-                e.currentTarget.reset();
+                formRef.current?.reset();
                 setTimeout(() => setSubmitted(false), 3000);
             }
         } catch (error) {
@@ -43,7 +44,7 @@ const Contact = () => {
                 Whether you have a question or just want to say hi, I'll try my best to get back to you!
             </p>
 
-            <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-4 mb-12">
+            <form ref={formRef} onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-4 mb-12">
                 <input
                     type="text"
                     name="name"
