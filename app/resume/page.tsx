@@ -16,7 +16,7 @@ export default function Resume() {
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <a
-                                href="/Ahmed_Amine_Nammat_Resume_EN.pdf"
+                                href="/englishResume.pdf"
                                 download="Ahmed_Amine_Nammat_Resume_EN.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -28,7 +28,7 @@ export default function Resume() {
                                 English Resume
                             </a>
                             <a
-                                href="/Ahmed_Amine_Nammat_Resume_FR.pdf"
+                                href="/frenchResume.pdf"
                                 download="Ahmed_Amine_Nammat_Resume_FR.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"

@@ -3,15 +3,16 @@
 import { useState } from 'react';
 
 const Contact = () => {
-    const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const form = e.currentTarget;
         setLoading(true);
 
         try {
-            const formData = new FormData(e.currentTarget);
+            const formData = new FormData(form);
             const response = await fetch('https://formspree.io/f/xlgpdbdz', {
                 method: 'POST',
                 body: formData,
@@ -19,15 +20,11 @@ const Contact = () => {
                     'Accept': 'application/json',
                 },
             });
-
-            if (response.ok) {
-                setSubmitted(true);
-                e.currentTarget.reset();
-                setTimeout(() => setSubmitted(false), 3000);
-            }
         } catch (error) {
             console.error('Error sending message:', error);
         } finally {
+            form.reset();
+            setShowModal(true);
             setLoading(false);
         }
     };
@@ -72,11 +69,6 @@ const Contact = () => {
                 >
                     {loading ? 'Sending...' : 'Send Message'}
                 </button>
-                {submitted && (
-                    <p className="text-green-600 dark:text-green-400 font-mono text-sm">
-                        Message sent successfully!
-                    </p>
-                )}
             </form>
             <div className="mt-20 flex justify-center gap-8">
                 <a
@@ -102,6 +94,26 @@ const Contact = () => {
             <p className="mt-8 text-slate text-xs font-mono">
                 Designed & Built by Ahmed Amine Nammat
             </p>
+
+            {showModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center px-6 bg-navy/70" role="dialog" aria-modal="true" aria-labelledby="contact-submit-modal-title">
+                    <div className="w-full max-w-md rounded-lg border border-cyan bg-light-navy dark:bg-navy p-6 text-center shadow-lg">
+                        <h3 id="contact-submit-modal-title" className="text-2xl font-bold text-navy dark:text-lightest-slate mb-3">
+                            Thank you!
+                        </h3>
+                        <p className="text-secondary dark:text-slate mb-6">
+                            Your form has been submitted.
+                        </p>
+                        <button
+                            type="button"
+                            onClick={() => setShowModal(false)}
+                            className="inline-block px-6 py-3 text-sm font-mono text-teal-600 dark:text-cyan border border-teal-600 dark:border-cyan rounded-md hover:bg-teal-600/10 dark:hover:bg-cyan/10 transition-colors"
+                        >
+                            Send a New Message
+                        </button>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
