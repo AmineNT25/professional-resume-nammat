@@ -1,9 +1,9 @@
 const Experience = () => {
     return (
-        <section id="experience" className="py-32 max-w-7xl mx-auto px-6 sm:px-12">
+        <section id="experience" className="py-20 sm:py-24 md:py-32 max-w-7xl mx-auto px-5 sm:px-12">
             <div className="flex items-center mb-16">
                 <span className="text-teal-600 dark:text-cyan font-mono text-xl mr-4">02.</span>
-                <h2 className="text-4xl md:text-5xl font-bold text-navy dark:text-lightest-slate">Experience & Education</h2>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy dark:text-lightest-slate">Experience & Education</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

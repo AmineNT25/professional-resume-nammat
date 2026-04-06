@@ -13,22 +13,22 @@ const Hero = () => {
     };
 
     return (
-        <section className="min-h-screen flex items-center justify-center max-w-7xl mx-auto px-6 sm:px-12 pt-32 md:pt-40 relative">
+        <section className="min-h-svh flex items-center justify-center max-w-7xl mx-auto px-5 sm:px-12 pt-24 sm:pt-28 md:pt-40 pb-12 relative">
             <div className="flex flex-col items-center text-center z-10 w-full">
                 <div className="space-y-6 max-w-4xl mx-auto">
-                    <h1 className="text-teal-600 dark:text-cyan font-mono text-lg mb-4 tracking-wider">Hi, my name is</h1>
+                    <h1 className="text-teal-600 dark:text-cyan font-mono text-base sm:text-lg mb-4 tracking-wider">Hi, my name is</h1>
 
                     <div className="space-y-2">
-                        <h2 className="text-navy dark:text-lightest-slate text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.9]">
+                        <h2 className="text-navy dark:text-lightest-slate text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.9]">
                             Ahmed Amine
                         </h2>
-                        <h2 className="text-slate-500 dark:text-slate text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter opacity-80">
+                        <h2 className="text-slate-500 dark:text-slate text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter opacity-80">
                             Nammat.
                         </h2>
                     </div>
 
                     <div className="mt-8 max-w-2xl mx-auto">
-                        <p className="text-secondary dark:text-slate text-xl leading-relaxed">
+                        <p className="text-secondary dark:text-slate text-lg sm:text-xl leading-relaxed">
                             I build pixel-perfect, performant web experiences. Currently exploring the intersection of design and engineering.
                         </p>
                     </div>

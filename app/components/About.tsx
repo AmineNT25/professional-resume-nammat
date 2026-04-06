@@ -2,13 +2,13 @@ const About = () => {
     const skills = ["NextJS", "Laravel", "NodeJS", "React", "Git", "Tailwind CSS", "MySQL", "MongoDB"];
 
     return (
-        <section id="about" className="py-32 max-w-7xl mx-auto px-6 sm:px-12">
+        <section id="about" className="py-20 sm:py-24 md:py-32 max-w-7xl mx-auto px-5 sm:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                 {/* Content Column */}
                 <div>
                     <div className="flex items-center mb-8">
                         <span className="text-teal-600 dark:text-cyan font-mono text-xl mr-4">01.</span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-navy dark:text-lightest-slate">About Me</h2>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy dark:text-lightest-slate">About Me</h2>
                     </div>
 
                     <div className="text-secondary dark:text-slate text-lg leading-relaxed space-y-6">
