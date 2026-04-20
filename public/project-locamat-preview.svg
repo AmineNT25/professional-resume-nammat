@@ -1,0 +1,16 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0C57A1"/>
+  <rect y="0" width="1600" height="110" fill="#F8FAFC"/>
+  <rect x="180" y="16" width="640" height="78" rx="14" fill="#EEF2FF"/>
+  <rect x="1040" y="30" width="140" height="50" rx="12" fill="#FFFFFF"/>
+  <rect x="1198" y="30" width="140" height="50" rx="12" fill="#FFFFFF"/>
+  <rect x="1356" y="30" width="170" height="50" rx="12" fill="#FF7A00"/>
+  <text x="24" y="66" fill="#0C57A1" font-family="Arial, sans-serif" font-size="48" font-weight="700">Loca<tspan fill="#FF7A00">Mat</tspan></text>
+  <text x="24" y="245" fill="#9EC5F8" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="4">EQUIPEMENTS PROFESSIONNELS</text>
+  <text x="24" y="352" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="88" font-weight="800">La reference de la location</text>
+  <text x="24" y="458" fill="#FF7A00" font-family="Arial, sans-serif" font-size="98" font-weight="900">professionnelle</text>
+  <text x="24" y="560" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="88" font-weight="800">au Maroc</text>
+  <text x="24" y="654" fill="#BFD7F6" font-family="Arial, sans-serif" font-size="50" font-weight="500">Trouvez, comparez et louez les equipements adaptes a vos projets.</text>
+  <rect x="24" y="715" width="250" height="74" rx="14" fill="#FF7A00"/>
+  <rect x="292" y="715" width="260" height="74" rx="14" stroke="#A5C6EE" stroke-width="2" fill="none"/>
+</svg>

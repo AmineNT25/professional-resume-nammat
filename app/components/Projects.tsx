@@ -38,6 +38,7 @@ const Projects = () => {
                         <ul className="flex flex-wrap gap-4 justify-end text-sm font-mono text-slate-500 dark:text-light-slate mb-8">
                             <li>React</li>
                             <li>Tailwind</li>
+                            <li>Firebase</li>
                             <li>Netlify</li>
                         </ul>
 
@@ -51,10 +52,46 @@ const Projects = () => {
                     </div>
                 </div>
 
-                {/* More Projects Placeholder */}
-                <div className="text-center py-12">
-                    <h3 className="text-2xl font-bold text-navy dark:text-lightest-slate mb-4">Other Noteworthy Projects</h3>
-                    <p className="text-secondary dark:text-slate">Coming soon...</p>
+                {/* Project 2: LocaMat (Right Aligned Visual, Left Content) */}
+                <div className="relative grid grid-cols-1 md:grid-cols-12 gap-8 items-center group">
+                    {/* Project Content Area */}
+                    <div className="md:col-span-5 relative z-10 md:-mr-12">
+                        <p className="font-mono text-teal-600 dark:text-cyan text-sm mb-2">Featured Project</p>
+                        <h3 className="text-3xl font-bold text-navy dark:text-lightest-slate mb-6">LocaMat</h3>
+
+                        <div className="bg-white dark:bg-light-navy p-6 rounded-lg shadow-xl text-secondary dark:text-light-slate text-sm leading-relaxed mb-6">
+                            A Moroccan material rental platform where professionals can find, compare, and rent construction and project equipment across Morocco. This project is currently in progress.
+                        </div>
+
+                        <ul className="flex flex-wrap gap-4 text-sm font-mono text-slate-500 dark:text-light-slate mb-8">
+                            <li>Next.js</li>
+                            <li>TypeScript</li>
+                            <li>Tailwind</li>
+                            <li>Node.js</li>
+                        </ul>
+
+                        <div className="flex gap-6 items-center">
+                            <Link href="/projects/locamat" className="text-slate-600 dark:text-lightest-slate hover:text-teal-600 dark:hover:text-cyan transition-colors" aria-label="Open LocaMat project status page">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Project Visual Area */}
+                    <Link href="/projects/locamat" className="group/image md:col-span-7 relative rounded-xl overflow-hidden shadow-2xl bg-teal-600/10 dark:bg-navy aspect-video group-hover:scale-[1.02] transition-transform duration-500 block" aria-label="Open LocaMat project status page">
+                        <div className="absolute inset-0">
+                            <Image
+                                src="/project-locamat-preview.svg"
+                                alt="LocaMat interface preview"
+                                fill
+                                className="object-cover object-center blur-[1px] group-hover/image:blur-0 transition-all duration-500"
+                                sizes="(max-width: 768px) 100vw, 60vw"
+                            />
+                        </div>
+                        <div className="absolute inset-0 bg-teal-600/10 dark:bg-navy/10 mix-blend-multiply group-hover/image:mix-blend-normal transition-all duration-300"></div>
+                    </Link>
                 </div>
             </div>
         </section>
