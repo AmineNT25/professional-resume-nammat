@@ -46,21 +46,21 @@ const Contact = () => {
                     name="name"
                     placeholder="Your Name"
                     required
-                    className="w-full px-4 py-2 bg-light-navy dark:bg-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors"
+                    className="w-full px-4 py-2 bg-light-cyan dark:bg-light-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate placeholder:text-slate-400 dark:placeholder:text-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors"
                 />
                 <input
                     type="email"
                     name="email"
                     placeholder="Your Email"
                     required
-                    className="w-full px-4 py-2 bg-light-navy dark:bg-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors"
+                    className="w-full px-4 py-2 bg-light-cyan dark:bg-light-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate placeholder:text-slate-400 dark:placeholder:text-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors"
                 />
                 <textarea
                     name="message"
                     placeholder="Your Message"
                     required
                     rows={4}
-                    className="w-full px-4 py-2 bg-light-navy dark:bg-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors resize-none"
+                    className="w-full px-4 py-2 bg-light-cyan dark:bg-light-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate placeholder:text-slate-400 dark:placeholder:text-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors resize-none"
                 />
                 <button
                     type="submit"
