@@ -4,12 +4,12 @@ import Image from 'next/image';
 const Projects = () => {
     return (
         <section id="work" className="py-20 sm:py-24 md:py-32 max-w-7xl mx-auto px-5 sm:px-12">
-            <div className="flex items-center mb-20">
+            <div className="flex items-center mb-10 md:mb-20">
                 <span className="text-teal-600 dark:text-cyan font-mono text-xl mr-4">03.</span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy dark:text-lightest-slate">Some Things I've Built</h2>
             </div>
 
-            <div className="space-y-32">
+            <div className="space-y-16 md:space-y-32">
                 {/* Project 1: Healthy Recipe Finder (Left Content, Right Visual) */}
                 <div className="relative grid grid-cols-1 md:grid-cols-12 gap-8 items-center group">
                     {/* Project Content Area */}

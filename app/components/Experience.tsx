@@ -1,14 +1,14 @@
 const Experience = () => {
     return (
         <section id="experience" className="py-20 sm:py-24 md:py-32 max-w-7xl mx-auto px-5 sm:px-12">
-            <div className="flex items-center mb-16">
+            <div className="flex items-center mb-8 md:mb-16">
                 <span className="text-teal-600 dark:text-cyan font-mono text-xl mr-4">02.</span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy dark:text-lightest-slate">Experience & Education</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Modern Card 1: Education */}
-                <div className="group relative bg-white dark:bg-light-navy/50 p-8 rounded-2xl border border-gray-100 dark:border-lightest-navy transition-all duration-300 hover:border-teal-600 dark:hover:border-cyan hover:shadow-xl">
+                <div className="group relative bg-white dark:bg-light-navy/50 p-5 sm:p-8 rounded-2xl border border-gray-100 dark:border-lightest-navy transition-all duration-300 hover:border-teal-600 dark:hover:border-cyan hover:shadow-xl">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-24 h-24 text-teal-600 dark:text-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -36,7 +36,7 @@ const Experience = () => {
                 </div>
 
                 {/* Modern Card 2: Competences */}
-                <div className="bg-navy dark:bg-lightest-navy p-8 rounded-2xl text-white relative overflow-hidden">
+                <div className="bg-navy dark:bg-lightest-navy p-5 sm:p-8 rounded-2xl text-white relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-transparent pointer-events-none"></div>
 
                     <h3 className="text-2xl font-bold mb-6 relative z-10">Core Competencies</h3>
