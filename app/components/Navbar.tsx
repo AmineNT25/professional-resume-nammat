@@ -63,16 +63,17 @@ const Navbar = () => {
         <>
             <nav className={`fixed z-50 transition-all duration-300 w-full md:w-auto md:left-1/2 md:-translate-x-1/2 md:top-6 ${scrolled ? 'top-0 md:top-6' : 'top-0 md:top-6'}`}>
                 <div className={`
-                    backdrop-blur-xl border border-white/10 dark:border-white/5 
-                    bg-white/70 dark:bg-navy/80 
+                    backdrop-blur-xl border border-white/10 dark:border-white/5
+                    bg-white/70 dark:bg-navy/80
                     shadow-lg
                     px-6 py-3
                     md:rounded-full
                     w-full md:min-w-[700px]
-                    flex items-center justify-between
+                    grid grid-cols-3 md:flex md:items-center md:justify-between
+                    items-center
                     transition-all duration-300
                 `}>
-                    {/* Mobile: Hamburger left */}
+                    {/* Mobile: Hamburger — col 1 (left) */}
                     <div className="flex md:hidden items-center">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
@@ -92,8 +93,8 @@ const Navbar = () => {
                         </button>
                     </div>
 
-                    {/* Mobile: Logo center */}
-                    <div className="flex-shrink-0 md:hidden absolute left-1/2 -translate-x-1/2">
+                    {/* Mobile: Logo — col 2 (center) */}
+                    <div className="flex md:hidden justify-center items-center">
                         <Link href="/" className="block relative w-10 h-10">
                             {mounted && (
                                 <Image
@@ -163,8 +164,8 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    {/* Mobile: Theme toggle right */}
-                    <div className="flex md:hidden items-center">
+                    {/* Mobile: Theme toggle — col 3 (right) */}
+                    <div className="flex md:hidden items-center justify-end">
                         <button
                             onClick={toggleTheme}
                             className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
