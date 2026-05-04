@@ -72,8 +72,28 @@ const Navbar = () => {
                     flex items-center justify-between
                     transition-all duration-300
                 `}>
-                    {/* Logo (Mobile Only) - On desktop it can be part of the pill or hidden if we want ultra-minimal */}
-                    <div className="flex-shrink-0 md:hidden">
+                    {/* Mobile: Hamburger left */}
+                    <div className="flex md:hidden items-center">
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            type="button"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-teal-600 dark:text-cyan hover:bg-light-navy focus:outline-none"
+                        >
+                            <span className="sr-only">Open main menu</span>
+                            {!isOpen ? (
+                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            ) : (
+                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
+
+                    {/* Mobile: Logo center */}
+                    <div className="flex-shrink-0 md:hidden absolute left-1/2 -translate-x-1/2">
                         <Link href="/" className="block relative w-10 h-10">
                             {mounted && (
                                 <Image
@@ -143,24 +163,8 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    {/* Mobile Menu Button - Right Aligned */}
-                    <div className="flex md:hidden items-center gap-4">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            type="button"
-                            className="inline-flex items-center justify-center p-2 rounded-md text-teal-600 dark:text-cyan hover:bg-light-navy focus:outline-none"
-                        >
-                            <span className="sr-only">Open main menu</span>
-                            {!isOpen ? (
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            ) : (
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            )}
-                        </button>
+                    {/* Mobile: Theme toggle right */}
+                    <div className="flex md:hidden items-center">
                         <button
                             onClick={toggleTheme}
                             className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
