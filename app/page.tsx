@@ -10,36 +10,30 @@ import Contact from "./components/Contact";
 
 export default function Home() {
   const loaderRef = useRef<HTMLDivElement>(null);
-  const loaderFillRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const [loaderDone, setLoaderDone] = useState(false);
 
   useEffect(() => {
     const loader = loaderRef.current;
-    const fill = loaderFillRef.current;
-    if (!loader || !fill) return;
+    if (!loader) return;
 
+    let tid: ReturnType<typeof setTimeout>;
     (async () => {
       const { gsap } = await import("gsap");
-
-      gsap.to(fill, {
-        x: "0%",
-        duration: 1.4,
-        ease: "power2.inOut",
-        onComplete: () => {
-          gsap.to(loader, {
-            opacity: 0,
-            duration: 0.55,
-            ease: "power2.inOut",
-            onComplete: () => {
-              loader.style.display = "none";
-              setLoaderDone(true);
-            },
-          });
-        },
-      });
+      tid = setTimeout(() => {
+        gsap.to(loader, {
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.inOut",
+          onComplete: () => {
+            loader.style.display = "none";
+            setLoaderDone(true);
+          },
+        });
+      }, 3300);
     })();
+    return () => clearTimeout(tid);
   }, []);
 
   useEffect(() => {
@@ -128,9 +122,41 @@ export default function Home() {
 
       {/* Loader */}
       <div id="loader" ref={loaderRef} aria-hidden="true">
-        <div className="loader-mark">nammat.dev</div>
-        <div className="loader-track">
-          <div className="loader-fill" ref={loaderFillRef} />
+        <div className="loader-bg-n">N</div>
+        <div className="loader-content">
+          {/* N mark — draws in via CSS stroke-dashoffset animation */}
+          <svg width="34" height="64" viewBox="0 0 34 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line
+              x1="2.11" y1="2.11" x2="2.11" y2="61.89"
+              stroke="#f0ede6" strokeWidth="4.22" strokeLinecap="square"
+              strokeDasharray="60" strokeDashoffset="60"
+              style={{ animation: "ldrawL 0.55s 0.05s cubic-bezier(0.16,1,0.3,1) forwards" }}
+            />
+            <line
+              x1="2.11" y1="2.11" x2="31.89" y2="61.89"
+              stroke="#c4b49e" strokeWidth="4.22" strokeLinecap="square"
+              strokeDasharray="69" strokeDashoffset="69"
+              style={{ animation: "ldrawD 0.55s 0.2s cubic-bezier(0.16,1,0.3,1) forwards" }}
+            />
+            <line
+              x1="31.89" y1="2.11" x2="31.89" y2="61.89"
+              stroke="#f0ede6" strokeWidth="4.22" strokeLinecap="square"
+              strokeDasharray="60" strokeDashoffset="60"
+              style={{ animation: "ldrawR 0.55s 0.42s cubic-bezier(0.16,1,0.3,1) forwards" }}
+            />
+          </svg>
+
+          <div className="loader-name">
+            <div className="loader-fullname">Ahmed Amine Nammat</div>
+            <div className="loader-role">Full Stack Developer</div>
+          </div>
+
+          <div className="loader-progress">
+            <div className="loader-track">
+              <div className="loader-bar-fill" />
+            </div>
+            <div className="loader-loading-text">Loading</div>
+          </div>
         </div>
       </div>
 

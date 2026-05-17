@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="44" height="44">
+  <style>
+    .bg { fill: #0a0a0a; }
+    .vt { stroke: #f0ede6; }
+    .dg { stroke: #c4b49e; }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #f5f3ef; }
+      .vt { stroke: #1a1816; }
+      .dg { stroke: #9a8070; }
+    }
+  </style>
+  <rect class="bg" width="44" height="44" rx="3"/>
+  <!-- NMark: w=34 centered in 44 → translate x=5; size=44, sw=2.9 -->
+  <g transform="translate(5, 0)">
+    <line class="vt" x1="1.45" y1="1.45" x2="1.45" y2="42.55" stroke-width="2.9" stroke-linecap="square"/>
+    <line class="dg" x1="1.45" y1="1.45" x2="32.55" y2="42.55" stroke-width="2.9" stroke-linecap="square"/>
+    <line class="vt" x1="32.55" y1="1.45" x2="32.55" y2="42.55" stroke-width="2.9" stroke-linecap="square"/>
+  </g>
+</svg>

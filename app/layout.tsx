@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   title: "Ahmed Amine Nammat | Full Stack Developer",
   description: "Portfolio of Ahmed Amine Nammat, a Full Stack Developer specializing in modern web applications.",
   icons: {
-    icon: "/logo-dark-mode.png",
+    icon: "/favicon.svg",
   },
 };
 
