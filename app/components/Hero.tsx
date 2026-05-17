@@ -214,7 +214,6 @@ const Hero = ({ loaderDone }: HeroProps) => {
       <div className="hero-body" id="hero-body" ref={heroBodyRef}>
         <div className="hero-eyebrow">
           <div className="hero-eyebrow-bar" />
-          <span className="hero-eyebrow-text">Full Stack Developer — Morocco</span>
         </div>
         <h1 className="hero-name">
           <span className="ln"><span className="lni">Ahmed</span></span>
