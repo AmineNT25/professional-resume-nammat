@@ -1,121 +1,144 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 const Contact = () => {
-    const [loading, setLoading] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-        setLoading(true);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    setLoading(true);
+    try {
+      const formData = new FormData(form);
+      await fetch("https://formspree.io/f/xlgpdbdz", {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+    } catch (err) {
+      console.error("Error sending message:", err);
+    } finally {
+      form.reset();
+      setShowModal(true);
+      setLoading(false);
+    }
+  };
 
-        try {
-            const formData = new FormData(form);
-            const response = await fetch('https://formspree.io/f/xlgpdbdz', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json',
-                },
-            });
-        } catch (error) {
-            console.error('Error sending message:', error);
-        } finally {
-            form.reset();
-            setShowModal(true);
-            setLoading(false);
-        }
-    };
+  return (
+    <section id="contact">
+      <div className="sec-head">
+        <span className="sec-num">05</span>
+        <div className="sec-rule" />
+        <span className="sec-tag">Get in Touch</span>
+      </div>
 
-    return (
-        <section id="contact" className="py-20 md:py-32 max-w-3xl mx-auto px-6 text-center">
-            <span className="text-teal-600 dark:text-cyan font-mono text-lg mb-4 block">04. What's Next?</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-navy dark:text-lightest-slate mb-6">
-                Get In Touch
-            </h2>
-            <p className="text-secondary dark:text-slate text-lg leading-relaxed mb-12 max-w-xl mx-auto">
-                I'm currently looking for new opportunities, my inbox is always open.
-                Whether you have a question or just want to say hi, I'll try my best to get back to you!
-            </p>
+      <div className="ct-headline gsap-reveal">
+        Let&apos;s work<br /><em>together.</em>
+      </div>
 
-            <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-4 mb-12">
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    required
-                    className="w-full px-4 py-2 bg-light-cyan dark:bg-light-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate placeholder:text-slate-400 dark:placeholder:text-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors"
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    required
-                    className="w-full px-4 py-2 bg-light-cyan dark:bg-light-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate placeholder:text-slate-400 dark:placeholder:text-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors"
-                />
-                <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    required
-                    rows={4}
-                    className="w-full px-4 py-2 bg-light-cyan dark:bg-light-navy border border-slate dark:border-cyan rounded-md text-navy dark:text-lightest-slate placeholder:text-slate-400 dark:placeholder:text-slate focus:outline-none focus:border-teal-600 dark:focus:border-cyan transition-colors resize-none"
-                />
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="inline-block px-8 py-4 text-sm font-mono text-teal-600 dark:text-cyan border border-teal-600 dark:border-cyan rounded-md hover:bg-teal-600/10 dark:hover:bg-cyan/10 transition-colors disabled:opacity-50"
-                >
-                    {loading ? 'Sending...' : 'Send Message'}
-                </button>
-            </form>
-            <div className="mt-20 flex justify-center gap-8">
-                <a
-                    href="https://github.com/AmineNT25/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate hover:text-cyan transition-colors"
-                    aria-label="GitHub"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-github w-6 h-6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-                <a
-                    href="https://www.linkedin.com/in/ahmed-amine-nammat-473083280"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate hover:text-cyan transition-colors"
-                    aria-label="LinkedIn"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-linkedin w-6 h-6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
+      {/* Contact form */}
+      <form onSubmit={handleSubmit} className="ct-form gsap-reveal">
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          required
+        />
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          required
+          rows={5}
+        />
+        <button type="submit" disabled={loading} className="ct-submit">
+          {loading ? "Sending..." : "Send Message →"}
+        </button>
+      </form>
+
+      {/* Resume downloads */}
+      <div className="ct-resume gsap-reveal">
+        <span className="ct-resume-label">Download Resume</span>
+        <div className="ct-resume-btns">
+          <a
+            href="/englishResume.pdf"
+            download="Ahmed_Amine_Nammat_Resume_EN.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ct-dl-btn"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            English
+          </a>
+          <a
+            href="/frenchResume.pdf"
+            download="Ahmed_Amine_Nammat_Resume_FR.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ct-dl-btn"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Français
+          </a>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="ct-foot">
+        <span className="ct-copy">© 2026 Ahmed Amine Nammat. All rights reserved.</span>
+        <div className="ct-socials">
+          <a
+            href="https://github.com/AmineNT25/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/ahmed-amine-nammat-473083280"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="mailto:ahmedaminenammat021105@gmail.com">Email</a>
+        </div>
+      </div>
+
+      {/* Success modal */}
+      {showModal && (
+        <div
+          className="ct-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          <div className="ct-modal-box">
+            <div className="ct-modal-title" id="modal-title">
+              Thank you.
             </div>
-
-            <p className="mt-8 text-slate text-xs font-mono">
-                Designed & Built by Ahmed Amine Nammat
+            <p className="ct-modal-text">
+              Your message has been sent. I&apos;ll get back to you soon.
             </p>
-
-            {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center px-6 bg-navy/70" role="dialog" aria-modal="true" aria-labelledby="contact-submit-modal-title">
-                    <div className="w-full max-w-md rounded-lg border border-cyan bg-light-navy dark:bg-navy p-6 text-center shadow-lg">
-                        <h3 id="contact-submit-modal-title" className="text-2xl font-bold text-navy dark:text-lightest-slate mb-3">
-                            Thank you!
-                        </h3>
-                        <p className="text-secondary dark:text-slate mb-6">
-                            Your form has been submitted.
-                        </p>
-                        <button
-                            type="button"
-                            onClick={() => setShowModal(false)}
-                            className="inline-block px-6 py-3 text-sm font-mono text-teal-600 dark:text-cyan border border-teal-600 dark:border-cyan rounded-md hover:bg-teal-600/10 dark:hover:bg-cyan/10 transition-colors"
-                        >
-                            Send a New Message
-                        </button>
-                    </div>
-                </div>
-            )}
-        </section>
-    );
+            <button
+              type="button"
+              className="ct-modal-btn"
+              onClick={() => setShowModal(false)}
+            >
+              Send a New Message
+            </button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 };
 
 export default Contact;

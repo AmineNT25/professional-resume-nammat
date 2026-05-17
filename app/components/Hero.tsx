@@ -1,57 +1,234 @@
-const Hero = () => {
-    const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-        e.preventDefault();
-        const targetId = href.replace('#', '');
-        const elem = document.getElementById(targetId);
-        if (elem) {
-            elem.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-            window.history.pushState(null, '', href);
+"use client";
+
+import { useEffect, useRef } from "react";
+
+interface HeroProps {
+  loaderDone: boolean;
+}
+
+const Hero = ({ loaderDone }: HeroProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const heroBodyRef = useRef<HTMLDivElement>(null);
+  const initiated = useRef(false);
+
+  // Three.js particle field
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    let rafId: number;
+    let renderer: import("three").WebGLRenderer | null = null;
+
+    (async () => {
+      const THREE = await import("three");
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.z = 8;
+
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const mobile = window.innerWidth < 768;
+      const COUNT = mobile ? 900 : 2200;
+
+      const pos  = new Float32Array(COUNT * 3);
+      const orig = new Float32Array(COUNT * 3);
+      const vel  = new Float32Array(COUNT * 3);
+      const ph   = new Float32Array(COUNT);
+
+      for (let i = 0; i < COUNT; i++) {
+        const x = (Math.random() - 0.5) * 26;
+        const y = (Math.random() - 0.5) * 17;
+        const z = (Math.random() - 0.5) * 7;
+        pos[i * 3]     = orig[i * 3]     = x;
+        pos[i * 3 + 1] = orig[i * 3 + 1] = y;
+        pos[i * 3 + 2] = orig[i * 3 + 2] = z;
+        ph[i] = Math.random() * Math.PI * 2;
+      }
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+
+      const mat = new THREE.PointsMaterial({
+        color: 0xc4b49e,
+        size: mobile ? 0.036 : 0.024,
+        transparent: true,
+        opacity: 0.62,
+        sizeAttenuation: true,
+      });
+
+      const pts = new THREE.Points(geo, mat);
+      scene.add(pts);
+
+      const mouse = { x: 0, y: 0 };
+      let heroVisible = true;
+
+      const onMouseMove = (e: MouseEvent) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      };
+      document.addEventListener("mousemove", onMouseMove);
+
+      const heroEl = document.getElementById("hero");
+      const heroObs = new IntersectionObserver(
+        (entries) => { heroVisible = entries[0].isIntersecting; },
+        { threshold: 0 }
+      );
+      if (heroEl) heroObs.observe(heroEl);
+
+      let t = 0;
+      const animate = () => {
+        rafId = requestAnimationFrame(animate);
+        if (!heroVisible) return;
+
+        t += 0.001;
+        const arr = pts.geometry.attributes.position.array as Float32Array;
+        const mx = mouse.x * 9;
+        const my = mouse.y * 6;
+
+        for (let i = 0; i < COUNT; i++) {
+          const ix = i * 3, iy = i * 3 + 1, iz = i * 3 + 2;
+          arr[iy] += Math.sin(t * 0.9 + ph[i]) * 0.00075;
+
+          const dx = arr[ix] - mx;
+          const dy = arr[iy] - my;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          const R  = 3.2;
+          if (d < R && d > 0.001) {
+            const f = (1 - d / R) * 0.038;
+            vel[ix] += (dx / d) * f;
+            vel[iy] += (dy / d) * f;
+          }
+
+          vel[ix] += (orig[ix] - arr[ix]) * 0.0022;
+          vel[iy] += (orig[iy] - arr[iy]) * 0.0022;
+          vel[iz] += (orig[iz] - arr[iz]) * 0.0022;
+
+          vel[ix] *= 0.93;
+          vel[iy] *= 0.93;
+          vel[iz] *= 0.93;
+
+          arr[ix] += vel[ix];
+          arr[iy] += vel[iy];
+          arr[iz] += vel[iz];
         }
+
+        pts.geometry.attributes.position.needsUpdate = true;
+        pts.rotation.y += 0.00006;
+        renderer!.render(scene, camera);
+      };
+      animate();
+
+      const onResize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer!.setSize(window.innerWidth, window.innerHeight);
+      };
+      window.addEventListener("resize", onResize);
+
+      // Cleanup stored on the ref so it can be called on unmount
+      (canvas as any).__cleanup = () => {
+        document.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("resize", onResize);
+        heroObs.disconnect();
+        cancelAnimationFrame(rafId);
+        renderer!.dispose();
+      };
+    })();
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      if ((canvas as any).__cleanup) (canvas as any).__cleanup();
     };
+  }, []);
 
-    return (
-        <section className="md:min-h-svh flex items-start md:items-center justify-center max-w-7xl mx-auto px-5 sm:px-12 pt-24 sm:pt-28 md:pt-40 pb-16 relative">
-            <div className="flex flex-col items-center text-center z-10 w-full">
-                <div className="space-y-6 max-w-4xl mx-auto">
-                    <h1 className="text-teal-600 dark:text-cyan font-mono text-base sm:text-lg mb-4 tracking-wider">Hi, my name is</h1>
+  // Hero entrance + parallax (runs when loader finishes)
+  useEffect(() => {
+    if (!loaderDone || initiated.current) return;
+    initiated.current = true;
 
-                    <div className="space-y-2">
-                        <h2 className="text-navy dark:text-lightest-slate text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.9]">
-                            Ahmed Amine
-                        </h2>
-                        <h2 className="text-slate-500 dark:text-slate text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold tracking-tighter opacity-80">
-                            Nammat.
-                        </h2>
-                    </div>
+    (async () => {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
 
-                    <div className="mt-8 max-w-2xl mx-auto">
-                        <p className="text-secondary dark:text-slate text-lg sm:text-xl leading-relaxed">
-                            I build pixel-perfect, performant web experiences. Currently exploring the intersection of design and engineering.
-                        </p>
-                    </div>
+      const tl = gsap.timeline();
 
-                    <div className="pt-8 flex justify-center">
-                        <a
-                            href="#work"
-                            onClick={(e) => handleSmoothScroll(e, '#work')}
-                            className="group inline-flex items-center gap-3 text-teal-600 dark:text-cyan text-base sm:text-xl font-mono hover:underline underline-offset-8 transition-all cursor-pointer"
-                        >
-                            Check out my work
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
+      tl.from("nav.main-nav", { opacity: 0, y: -16, duration: 0.6, ease: "power3.out" })
+        .from(".hero-name .lni", {
+          y: "110%",
+          duration: 1.1,
+          stagger: 0.09,
+          ease: "power4.out",
+        }, "-=0.3")
+        .from(".hero-eyebrow", { opacity: 0, y: 14, duration: 0.7, ease: "power3.out" }, "-=0.9")
+        .from(".hero-role",    { opacity: 0, y: 10, duration: 0.7, ease: "power3.out" }, "-=0.6")
+        .from(".hero-scroll",  { opacity: 0, duration: 0.6, ease: "power3.out" }, "-=0.4");
 
-            {/* Decorative Background Blob - Centered */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] bg-gradient-to-tr from-teal-600/10 to-transparent dark:from-cyan/5 rounded-full blur-[80px] md:blur-[100px] -z-10 pointer-events-none"></div>
-        </section>
-    );
+      // Parallax
+      gsap.to("#hero-body", {
+        y: -70, opacity: 0, ease: "none",
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "55% top",
+          scrub: true,
+        },
+      });
+      gsap.to("#pcanvas", {
+        opacity: 0, ease: "none",
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "15% top",
+          end: "60% top",
+          scrub: true,
+        },
+      });
+
+      // Scroll reveals for other sections
+      document.querySelectorAll(".gsap-reveal").forEach((el) => {
+        gsap.from(el, {
+          y: 44, opacity: 0, duration: 1.1, ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 87%", toggleActions: "play none none none" },
+        });
+      });
+
+      gsap.from(".gsap-exp", {
+        x: -32, opacity: 0, duration: 0.85, stagger: 0.16, ease: "power3.out",
+        scrollTrigger: { trigger: ".exp-list", start: "top 82%", toggleActions: "play none none none" },
+      });
+    })();
+  }, [loaderDone]);
+
+  const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const el = document.getElementById("work");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <section id="hero">
+      <canvas ref={canvasRef} id="pcanvas" />
+      <div className="hero-body" id="hero-body" ref={heroBodyRef}>
+        <div className="hero-eyebrow">
+          <div className="hero-eyebrow-bar" />
+          <span className="hero-eyebrow-text">Full Stack Developer — Morocco</span>
+        </div>
+        <h1 className="hero-name">
+          <span className="ln"><span className="lni">Ahmed</span></span>
+          <span className="ln"><span className="lni">Amine</span></span>
+          <span className="ln"><span className="lni">Nammat</span></span>
+        </h1>
+        <p className="hero-role">Building thoughtful digital experiences</p>
+      </div>
+      <div className="hero-scroll" aria-hidden="true">
+        <span className="scroll-word">Scroll</span>
+        <div className="scroll-track" />
+      </div>
+    </section>
+  );
 };
 
 export default Hero;

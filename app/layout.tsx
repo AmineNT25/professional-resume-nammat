@@ -1,29 +1,37 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Outfit } from "next/font/google";
+import { Cormorant_Garamond, Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const spaceGrotesk = Space_Grotesk({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-space",
-  display: 'swap',
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
 });
 
-const outfit = Outfit({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-outfit",
-  display: 'swap',
+  weight: ["300", "400", "500"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Ahmed Amine Nammat | Full Stack Developer",
-  description: "Portfolio of Ahmed Amine Nammat, a Web Development Trainee specializing in modern web applications.",
+  description: "Portfolio of Ahmed Amine Nammat, a Full Stack Developer specializing in modern web applications.",
   icons: {
     icon: "/logo-dark-mode.png",
   },
 };
-
-import InteractiveBackground from "./components/InteractiveBackground";
 
 export default function RootLayout({
   children,
@@ -33,10 +41,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${spaceGrotesk.variable} ${outfit.variable} antialiased font-sans`}
+        className={`${cormorantGaramond.variable} ${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
       >
         <Providers>
-          <InteractiveBackground />
           {children}
         </Providers>
       </body>
