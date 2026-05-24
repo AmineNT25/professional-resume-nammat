@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 const projects = [
   {
@@ -68,6 +69,8 @@ export default function Projects() {
   const [cur, setCur] = useState(0);
   const busyRef = useRef(false);
   const slidesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const { resolvedTheme } = useTheme();
+  const isLight = resolvedTheme === "light";
 
   // Initialise first slide visible with GSAP
   useEffect(() => {
@@ -202,7 +205,7 @@ export default function Projects() {
             {/* Visual panel */}
             <div className="proj-vis">
               <Image
-                src={project.image}
+                src={project.name === "Stochos" && isLight ? "/stochosLight.png" : project.image}
                 alt={project.imgAlt}
                 fill
                 className="proj-vis-img"
