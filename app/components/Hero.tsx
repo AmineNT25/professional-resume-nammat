@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 interface HeroProps {
   loaderDone: boolean;
@@ -10,6 +11,8 @@ const Hero = ({ loaderDone }: HeroProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const heroBodyRef = useRef<HTMLDivElement>(null);
   const initiated = useRef(false);
+  const { resolvedTheme } = useTheme();
+  const ptsMatRef = useRef<import("three").PointsMaterial | null>(null);
 
   // Three.js particle field
   useEffect(() => {
@@ -51,13 +54,15 @@ const Hero = ({ loaderDone }: HeroProps) => {
       const geo = new THREE.BufferGeometry();
       geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
 
+      const isLight = document.documentElement.classList.contains("light");
       const mat = new THREE.PointsMaterial({
-        color: 0xc4b49e,
+        color: isLight ? 0x8a6f4a : 0xc4b49e,
         size: mobile ? 0.036 : 0.024,
         transparent: true,
-        opacity: 0.62,
+        opacity: isLight ? 0.5 : 0.62,
         sizeAttenuation: true,
       });
+      ptsMatRef.current = mat;
 
       const pts = new THREE.Points(geo, mat);
       scene.add(pts);
@@ -143,6 +148,16 @@ const Hero = ({ loaderDone }: HeroProps) => {
       if ((canvas as any).__cleanup) (canvas as any).__cleanup();
     };
   }, []);
+
+  // React to theme changes by recoloring the existing particle material
+  useEffect(() => {
+    const mat = ptsMatRef.current;
+    if (!mat) return;
+    const isLight = resolvedTheme === "light";
+    mat.color.setHex(isLight ? 0x8a6f4a : 0xc4b49e);
+    mat.opacity = isLight ? 0.5 : 0.62;
+    mat.needsUpdate = true;
+  }, [resolvedTheme]);
 
   // Hero entrance + parallax (runs when loader finishes)
   useEffect(() => {

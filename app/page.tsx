@@ -125,22 +125,22 @@ export default function Home() {
         <div className="loader-bg-n">N</div>
         <div className="loader-content">
           {/* N mark — draws in via CSS stroke-dashoffset animation */}
-          <svg width="34" height="64" viewBox="0 0 34 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="34" height="64" viewBox="0 0 34 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: "var(--fg)" }}>
             <line
               x1="2.11" y1="2.11" x2="2.11" y2="61.89"
-              stroke="#f0ede6" strokeWidth="4.22" strokeLinecap="square"
+              stroke="currentColor" strokeWidth="4.22" strokeLinecap="square"
               strokeDasharray="60" strokeDashoffset="60"
               style={{ animation: "ldrawL 0.55s 0.05s cubic-bezier(0.16,1,0.3,1) forwards" }}
             />
             <line
               x1="2.11" y1="2.11" x2="31.89" y2="61.89"
-              stroke="#c4b49e" strokeWidth="4.22" strokeLinecap="square"
+              strokeWidth="4.22" strokeLinecap="square"
               strokeDasharray="69" strokeDashoffset="69"
-              style={{ animation: "ldrawD 0.55s 0.2s cubic-bezier(0.16,1,0.3,1) forwards" }}
+              style={{ stroke: "var(--accent)", animation: "ldrawD 0.55s 0.2s cubic-bezier(0.16,1,0.3,1) forwards" }}
             />
             <line
               x1="31.89" y1="2.11" x2="31.89" y2="61.89"
-              stroke="#f0ede6" strokeWidth="4.22" strokeLinecap="square"
+              stroke="currentColor" strokeWidth="4.22" strokeLinecap="square"
               strokeDasharray="60" strokeDashoffset="60"
               style={{ animation: "ldrawR 0.55s 0.42s cubic-bezier(0.16,1,0.3,1) forwards" }}
             />

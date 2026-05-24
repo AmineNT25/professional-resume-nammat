@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "next-themes";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -15,6 +16,55 @@ const DownloadIcon = () => (
     <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
   </svg>
 );
+
+const ThemeToggle = () => {
+  const { resolvedTheme, setTheme } = useTheme();
+
+  const toggle = () => {
+    const next = resolvedTheme === "dark" ? "light" : "dark";
+    setTheme(next);
+  };
+
+  return (
+    <button
+      type="button"
+      className="theme-toggle"
+      onClick={toggle}
+      aria-label="Toggle color theme"
+      title="Toggle color theme"
+    >
+      <svg
+        className="icon-moon"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+      </svg>
+      <svg
+        className="icon-sun"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+      </svg>
+    </button>
+  );
+};
 
 const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
@@ -79,6 +129,7 @@ const Navbar = () => {
               Resume
             </button>
           </div>
+          <ThemeToggle />
         </div>
       </nav>
 
