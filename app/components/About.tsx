@@ -3,33 +3,52 @@
 const About = () => {
   return (
     <section id="about" className="sec">
-      <div className="sec-head">
-        <span className="sec-num">01</span>
-        <div className="sec-rule" />
-        <span className="sec-tag">About</span>
-      </div>
-      <div className="ab-grid">
-        <div>
-          <h2 className="ab-heading gsap-reveal">
-            Crafting code<br />with <em>intention</em>
-          </h2>
+      <div className="wrap">
+        <div className="sec-head gsap-reveal">
+          <span className="kicker"><span className="num">01</span> — about</span>
+          <h2 className="sec-title">A developer who sweats the details.</h2>
         </div>
-        <div className="ab-right">
-          <p className="ab-bio gsap-reveal">
-            I&apos;m Ahmed Amine Nammat — a Full Stack Developer and Web Development Technician at OFPPT, with strong knowledge in frontend and backend development.
-          </p>
-          <p className="ab-bio gsap-reveal">
-            I build end-to-end applications that are fast, accessible, and a pleasure to use — turning complex problems into simple, elegant solutions.
-          </p>
-          <div className="ab-chips gsap-reveal">
-            <span className="ab-chip">React</span>
-            <span className="ab-chip">Next.js</span>
-            <span className="ab-chip">TypeScript</span>
-            <span className="ab-chip">Node.js</span>
-            <span className="ab-chip">Laravel</span>
-            <span className="ab-chip">Tailwind</span>
-            <span className="ab-chip">Open to Remote</span>
+
+        <div className="about-grid">
+          <div className="about-body gsap-reveal">
+            <p>
+              I&apos;m a <strong>Full Stack Developer</strong> based in Agadir, Morocco, focused on
+              building fast, accessible, and genuinely useful web applications — from the database
+              to the last pixel.
+            </p>
+            <p>
+              I care about clean architecture, precise interfaces, and the small interactions most
+              people never notice but everyone feels. I work across the modern JavaScript stack and
+              pick the right tool for the job rather than the trendiest one.
+            </p>
+            <div className="chips">
+              <span className="chip"><span className="lead">›</span>React</span>
+              <span className="chip"><span className="lead">›</span>Next.js</span>
+              <span className="chip"><span className="lead">›</span>TypeScript</span>
+              <span className="chip"><span className="lead">›</span>Node.js</span>
+              <span className="chip"><span className="lead">›</span>Laravel</span>
+              <span className="chip"><span className="lead">›</span>Tailwind</span>
+            </div>
           </div>
+
+          <dl className="about-meta gsap-reveal">
+            <div className="meta-row">
+              <dt>Based in</dt>
+              <dd>Agadir, Morocco</dd>
+            </div>
+            <div className="meta-row">
+              <dt>Focus</dt>
+              <dd>Full Stack · Web Apps</dd>
+            </div>
+            <div className="meta-row">
+              <dt>Availability</dt>
+              <dd><span className="ok">●</span> Open to Remote</dd>
+            </div>
+            <div className="meta-row">
+              <dt>Languages</dt>
+              <dd>EN · FR · AR</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>

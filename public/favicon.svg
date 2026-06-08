@@ -1,19 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="44" height="44">
-  <style>
-    .bg { fill: #0a0a0a; }
-    .vt { stroke: #f0ede6; }
-    .dg { stroke: #c4b49e; }
-    @media (prefers-color-scheme: light) {
-      .bg { fill: #f5f3ef; }
-      .vt { stroke: #1a1816; }
-      .dg { stroke: #9a8070; }
-    }
-  </style>
-  <rect class="bg" width="44" height="44" rx="3"/>
-  <!-- NMark: w=34 centered in 44 → translate x=5; size=44, sw=2.9 -->
-  <g transform="translate(5, 0)">
-    <line class="vt" x1="1.45" y1="1.45" x2="1.45" y2="42.55" stroke-width="2.9" stroke-linecap="square"/>
-    <line class="dg" x1="1.45" y1="1.45" x2="32.55" y2="42.55" stroke-width="2.9" stroke-linecap="square"/>
-    <line class="vt" x1="32.55" y1="1.45" x2="32.55" y2="42.55" stroke-width="2.9" stroke-linecap="square"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <rect width="100" height="100" rx="24" fill="#0d0d0d"/>
+  <rect x="1.25" y="1.25" width="97.5" height="97.5" rx="22.75" fill="none" stroke="#ffffff" stroke-opacity="0.10" stroke-width="2.5"/>
+  <polyline points="33,33 54,50 33,67" fill="none" stroke="#4ade80" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="58" y="58" width="20" height="9" rx="1.5" fill="#4ade80"/>
 </svg>
