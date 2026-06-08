@@ -52,7 +52,7 @@ const Hero = ({ loaderDone }: HeroProps) => {
       <div className="wrap">
         <div className="term" aria-label="Introduction">
           <span className="term-row term-cmd"><span className="p">&gt;</span>whoami</span>
-          <span className="term-row"><span className="term-out name">Ahmed Amine Nammat</span></span>
+          <div className="term-row"><h1 className="term-out name">Ahmed Amine Nammat</h1></div>
           <span className="term-row term-cmd"><span className="p">&gt;</span>role</span>
           <span className="term-row"><span className="term-out lg">Full Stack Developer</span></span>
           <span className="term-row term-cmd"><span className="p">&gt;</span>location</span>
@@ -66,9 +66,9 @@ const Hero = ({ loaderDone }: HeroProps) => {
           </span>
         </div>
 
-        <h1 className="hero-tag">
+        <p className="hero-tag">
           Building <em>thoughtful</em> digital experiences — sharp, precise, and built to last.
-        </h1>
+        </p>
 
         <div className="hero-cta">
           <a className="btn btn-primary" href="#projects" onClick={smoothTo("projects")}>
