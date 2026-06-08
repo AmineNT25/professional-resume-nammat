@@ -69,6 +69,18 @@ const Experience = () => {
                   clean architecture, version control, and shipping real, working applications from
                   spec to deployment.
                 </p>
+              </div>
+            </article>
+            <article className="exp-item gsap-exp">
+              <div className="exp-when">Sept. 26, <span className="now">2025</span></div>
+              <div>
+                <h3 className="exp-role">Udemy Certificate</h3>
+                <div className="exp-org">The Complete JavaScript Course 2025: From Zero to Expert!</div>
+                <p className="exp-desc">
+                  Completed an intensive JavaScript program covering ES6+, DOM manipulation, 
+                  asynchronous programming, APIs, and modern web development practices 
+                  through hands-on projects.
+                </p>
                 <a
                   href="https://udemy.com/certificate/UC-2c6749df-3fd6-4f8b-885e-9a5d27629e49/"
                   target="_blank"
@@ -77,18 +89,6 @@ const Experience = () => {
                 >
                   View Certificate →
                 </a>
-              </div>
-            </article>
-            <article className="exp-item gsap-exp">
-              <div className="exp-when">2024 — <span className="now">present</span></div>
-              <div>
-                <h3 className="exp-role">Freelance Developer</h3>
-                <div className="exp-org">Self-employed · Remote</div>
-                <p className="exp-desc">
-                  Designing and developing web applications for clients end to end — translating
-                  requirements into precise, maintainable interfaces and APIs, with an eye on
-                  performance and long-term upkeep.
-                </p>
               </div>
             </article>
           </div>

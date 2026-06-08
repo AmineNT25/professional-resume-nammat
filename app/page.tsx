@@ -39,38 +39,44 @@ export default function Home() {
   // GSAP scroll reveals — fire after loader clears
   useEffect(() => {
     if (!loaderDone) return;
+    let ctx: { revert: () => void } | undefined;
     (async () => {
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
 
-      document.querySelectorAll(".gsap-reveal").forEach((el) => {
-        gsap.from(el, {
-          y: 32,
+      ctx = gsap.context(() => {
+        document.querySelectorAll(".gsap-reveal").forEach((el) => {
+          gsap.from(el, {
+            y: 32,
+            opacity: 0,
+            duration: 1.0,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          });
+        });
+
+        gsap.from(".gsap-exp", {
+          x: -24,
           opacity: 0,
-          duration: 1.0,
+          duration: 0.8,
+          stagger: 0.16,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
+            trigger: ".exp-list",
+            start: "top 82%",
             toggleActions: "play none none none",
           },
         });
       });
-
-      gsap.from(".gsap-exp", {
-        x: -24,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.16,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".exp-list",
-          start: "top 82%",
-          toggleActions: "play none none none",
-        },
-      });
     })();
+    return () => {
+      ctx?.revert();
+    };
   }, [loaderDone]);
 
   // Custom cursor

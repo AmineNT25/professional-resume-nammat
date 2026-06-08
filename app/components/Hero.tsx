@@ -1,23 +1,45 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface HeroProps {
   loaderDone: boolean;
 }
 
 const Hero = ({ loaderDone }: HeroProps) => {
+  const rootRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     if (!loaderDone) return;
 
+    const root = rootRef.current;
+    if (!root) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const targets = root.querySelectorAll<HTMLElement>(".term, .hero-tag, .hero-cta");
+
+    if (prefersReduced) {
+      targets.forEach((el) => (el.style.opacity = "1"));
+      return;
+    }
+
+    let ctx: { revert: () => void } | undefined;
+
     (async () => {
-      const { gsap } = await import("gsap");
-      const tl = gsap.timeline();
-      tl.from(".hero-status", { opacity: 0, y: 10, duration: 0.5, ease: "power3.out" })
-        .from(".term", { opacity: 0, y: 14, duration: 0.7, ease: "power3.out" }, "-=0.25")
-        .from(".hero-tag", { opacity: 0, y: 10, duration: 0.6, ease: "power3.out" }, "-=0.4")
-        .from(".hero-cta", { opacity: 0, y: 8, duration: 0.5, ease: "power3.out" }, "-=0.3");
+      try {
+        const { gsap } = await import("gsap");
+        ctx = gsap.context(() => {
+          const tl = gsap.timeline();
+          tl.fromTo(".term",     { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" })
+            .fromTo(".hero-tag", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.4")
+            .fromTo(".hero-cta", { opacity: 0, y: 8 },  { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, "-=0.3");
+        }, root);
+      } catch {
+        targets.forEach((el) => (el.style.opacity = "1"));
+      }
     })();
+
+    return () => ctx?.revert();
   }, [loaderDone]);
 
   const smoothTo = (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -26,7 +48,7 @@ const Hero = ({ loaderDone }: HeroProps) => {
   };
 
   return (
-    <section id="hero" className="hero-section">
+    <section id="hero" className="hero-section" ref={rootRef}>
       <div className="wrap">
         <div className="term" aria-label="Introduction">
           <span className="term-row term-cmd"><span className="p">&gt;</span>whoami</span>

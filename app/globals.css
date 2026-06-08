@@ -465,6 +465,20 @@ html.light .theme-toggle .icon-moon { transform: translateY(-140%) rotate(-40deg
 .hero-tag em { font-style: normal; color: var(--accent-ink); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
+/* Hero entrance: hidden until GSAP reveals them (prevents .from() flash) */
+.hero-section .term,
+.hero-section .hero-tag,
+.hero-section .hero-cta {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-section .term,
+  .hero-section .hero-tag,
+  .hero-section .hero-cta {
+    opacity: 1;
+  }
+}
+
 /* buttons */
 .btn {
   font-family: var(--font-jetbrains, 'JetBrains Mono'), ui-monospace, monospace;
