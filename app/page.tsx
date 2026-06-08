@@ -14,10 +14,10 @@ export default function Home() {
   const ringRef = useRef<HTMLDivElement>(null);
   const [loaderDone, setLoaderDone] = useState(false);
 
+  // Loader fade-out
   useEffect(() => {
     const loader = loaderRef.current;
     if (!loader) return;
-
     let tid: ReturnType<typeof setTimeout>;
     (async () => {
       const { gsap } = await import("gsap");
@@ -36,6 +36,44 @@ export default function Home() {
     return () => clearTimeout(tid);
   }, []);
 
+  // GSAP scroll reveals — fire after loader clears
+  useEffect(() => {
+    if (!loaderDone) return;
+    (async () => {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      document.querySelectorAll(".gsap-reveal").forEach((el) => {
+        gsap.from(el, {
+          y: 32,
+          opacity: 0,
+          duration: 1.0,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        });
+      });
+
+      gsap.from(".gsap-exp", {
+        x: -24,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.16,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".exp-list",
+          start: "top 82%",
+          toggleActions: "play none none none",
+        },
+      });
+    })();
+  }, [loaderDone]);
+
+  // Custom cursor
   useEffect(() => {
     const dot = dotRef.current;
     const ring = ringRef.current;
@@ -50,9 +88,7 @@ export default function Home() {
 
     document.body.style.cursor = "none";
 
-    let cx = -200, cy = -200;
-    let rx = -200, ry = -200;
-    let rafId: number;
+    let cx = -200, cy = -200, rx = -200, ry = -200, rafId: number;
 
     const onMove = (e: MouseEvent) => {
       cx = e.clientX;
@@ -79,12 +115,10 @@ export default function Home() {
       el.addEventListener("mouseenter", () => ring.classList.add("big"));
       el.addEventListener("mouseleave", () => ring.classList.remove("big"));
     };
-
     const updateHovers = () => {
-      document.querySelectorAll("a, button, .proj-btn").forEach(addHover);
+      document.querySelectorAll("a, button, .card").forEach(addHover);
     };
     updateHovers();
-
     const obs = new MutationObserver(updateHovers);
     obs.observe(document.body, { childList: true, subtree: true });
 
@@ -109,12 +143,7 @@ export default function Home() {
         aria-hidden="true"
       >
         <filter id="nf">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.72"
-            numOctaves="4"
-            stitchTiles="stitch"
-          />
+          <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" />
           <feColorMatrix type="saturate" values="0" />
         </filter>
         <rect width="100%" height="100%" filter="url(#nf)" />
@@ -122,35 +151,32 @@ export default function Home() {
 
       {/* Loader */}
       <div id="loader" ref={loaderRef} aria-hidden="true">
-        <div className="loader-bg-n">N</div>
+        <div className="loader-bg-n">&gt;</div>
         <div className="loader-content">
-          {/* N mark — draws in via CSS stroke-dashoffset animation */}
-          <svg width="34" height="64" viewBox="0 0 34 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: "var(--fg)" }}>
-            <line
-              x1="2.11" y1="2.11" x2="2.11" y2="61.89"
-              stroke="currentColor" strokeWidth="4.22" strokeLinecap="square"
-              strokeDasharray="60" strokeDashoffset="60"
-              style={{ animation: "ldrawL 0.55s 0.05s cubic-bezier(0.16,1,0.3,1) forwards" }}
+          <svg
+            width="60" height="60" viewBox="0 0 100 100"
+            fill="none" xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="33,33 54,50 33,67"
+              stroke="var(--accent)"
+              strokeWidth="10"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeDasharray="60"
+              strokeDashoffset="60"
+              style={{ animation: "ldrawChev 0.55s 0.1s cubic-bezier(0.16,1,0.3,1) forwards" }}
             />
-            <line
-              x1="2.11" y1="2.11" x2="31.89" y2="61.89"
-              strokeWidth="4.22" strokeLinecap="square"
-              strokeDasharray="69" strokeDashoffset="69"
-              style={{ stroke: "var(--accent)", animation: "ldrawD 0.55s 0.2s cubic-bezier(0.16,1,0.3,1) forwards" }}
-            />
-            <line
-              x1="31.89" y1="2.11" x2="31.89" y2="61.89"
-              stroke="currentColor" strokeWidth="4.22" strokeLinecap="square"
-              strokeDasharray="60" strokeDashoffset="60"
-              style={{ animation: "ldrawR 0.55s 0.42s cubic-bezier(0.16,1,0.3,1) forwards" }}
+            <rect
+              x="58" y="62" width="20" height="9" rx="1.5"
+              fill="var(--accent)"
+              style={{ opacity: 0, animation: "ldrawCursor 0.3s 0.55s ease forwards" }}
             />
           </svg>
-
           <div className="loader-name">
             <div className="loader-fullname">Ahmed Amine Nammat</div>
             <div className="loader-role">Full Stack Developer</div>
           </div>
-
           <div className="loader-progress">
             <div className="loader-track">
               <div className="loader-bar-fill" />
@@ -174,6 +200,36 @@ export default function Home() {
         <Projects />
         <Contact />
       </main>
+
+      <footer className="footer">
+        <div className="wrap footer-inner">
+          <div className="footer-left">
+            <span className="footer-name">Ahmed Amine Nammat</span>
+            <span className="footer-meta">Full Stack Developer · Agadir, Morocco · © 2026</span>
+          </div>
+          <nav className="footer-links" aria-label="Social">
+            <a
+              className="footer-link"
+              href="https://github.com/AmineNT25/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub <span className="ext" aria-hidden="true">↗</span>
+            </a>
+            <a
+              className="footer-link"
+              href="https://www.linkedin.com/in/ahmed-amine-nammat-473083280"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn <span className="ext" aria-hidden="true">↗</span>
+            </a>
+            <a className="footer-link" href="mailto:ahmedaminenammat021105@gmail.com">
+              Email <span className="ext" aria-hidden="true">↗</span>
+            </a>
+          </nav>
+        </div>
+      </footer>
     </>
   );
 }

@@ -1,27 +1,19 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Space_Grotesk, Space_Mono } from "next/font/google";
+import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const cormorantGaramond = Cormorant_Garamond({
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-hanken",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
+  weight: ["400", "500", "600"],
+  variable: "--font-jetbrains",
   display: "swap",
 });
 
@@ -41,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${cormorantGaramond.variable} ${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
+        className={`${hankenGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <Providers>
           {children}

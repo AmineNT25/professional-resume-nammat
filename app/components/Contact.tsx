@@ -27,92 +27,86 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact">
-      <div className="sec-head">
-        <span className="sec-num">05</span>
-        <div className="sec-rule" />
-        <span className="sec-tag">Get in Touch</span>
-      </div>
+    <section id="contact" className="sec">
+      <div className="wrap">
+        <div className="sec-head gsap-reveal">
+          <span className="kicker"><span className="num">05</span> — contact</span>
+          <h2 className="sec-title">Let&apos;s build something.</h2>
+        </div>
 
-      <div className="ct-headline gsap-reveal">
-        Let&apos;s work<br /><em>together.</em>
-      </div>
+        <div className="contact-grid">
+          <form className="ct-form gsap-reveal" onSubmit={handleSubmit} noValidate>
+            <div className="ct-field">
+              <label htmlFor="cf-name">Name</label>
+              <input
+                id="cf-name"
+                name="name"
+                type="text"
+                placeholder="Your name"
+                autoComplete="name"
+                required
+              />
+            </div>
+            <div className="ct-field">
+              <label htmlFor="cf-email">Email</label>
+              <input
+                id="cf-email"
+                name="email"
+                type="email"
+                placeholder="you@domain.com"
+                autoComplete="email"
+                required
+              />
+            </div>
+            <div className="ct-field">
+              <label htmlFor="cf-message">Message</label>
+              <textarea
+                id="cf-message"
+                name="message"
+                placeholder="Tell me about the project…"
+                required
+              />
+            </div>
+            <div className="ct-form-actions">
+              <button className="btn btn-primary" type="submit" disabled={loading}>
+                {loading ? (
+                  "Sending…"
+                ) : (
+                  <>Send Message <span className="btn-arrow" aria-hidden="true">→</span></>
+                )}
+              </button>
+            </div>
+          </form>
 
-      {/* Contact form */}
-      <form onSubmit={handleSubmit} className="ct-form gsap-reveal">
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          required
-        />
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          required
-          rows={5}
-        />
-        <button type="submit" disabled={loading} className="ct-submit">
-          {loading ? "Sending..." : "Send Message →"}
-        </button>
-      </form>
-
-      {/* Resume downloads */}
-      <div className="ct-resume gsap-reveal">
-        <span className="ct-resume-label">Download Resume</span>
-        <div className="ct-resume-btns">
-          <a
-            href="/englishResume.pdf"
-            download="Ahmed_Amine_Nammat_Resume_EN.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ct-dl-btn"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            English
-          </a>
-          <a
-            href="/frenchResume.pdf"
-            download="Ahmed_Amine_Nammat_Resume_FR.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ct-dl-btn"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            Français
-          </a>
+          <aside className="resume-panel gsap-reveal">
+            <div className="resume-label">
+              <span className="c">//</span> Or download my resume
+            </div>
+            <div className="resume-btns">
+              <a
+                className="resume-btn"
+                href="/englishResume.pdf"
+                download="Ahmed_Amine_Nammat_Resume_EN.pdf"
+              >
+                <span>Resume EN <span className="down" aria-hidden="true">↓</span></span>
+                <span className="meta">PDF · EN</span>
+              </a>
+              <a
+                className="resume-btn"
+                href="/frenchResume.pdf"
+                download="Ahmed_Amine_Nammat_Resume_FR.pdf"
+              >
+                <span>Resume FR <span className="down" aria-hidden="true">↓</span></span>
+                <span className="meta">PDF · FR</span>
+              </a>
+            </div>
+            <p className="resume-note">
+              Prefer a quick chat? Reach me directly via the links below.
+            </p>
+          </aside>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="ct-foot">
-        <span className="ct-copy">© 2026 Ahmed Amine Nammat. All rights reserved.</span>
-        <div className="ct-socials">
-          <a
-            href="https://github.com/AmineNT25/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/ahmed-amine-nammat-473083280"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a href="mailto:ahmedaminenammat021105@gmail.com">Email</a>
-        </div>
-      </div>
-
-      {/* Success modal */}
       {showModal && (
         <div
           className="ct-modal"
@@ -121,9 +115,7 @@ const Contact = () => {
           aria-labelledby="modal-title"
         >
           <div className="ct-modal-box">
-            <div className="ct-modal-title" id="modal-title">
-              Thank you.
-            </div>
+            <div className="ct-modal-title" id="modal-title">Thank you.</div>
             <p className="ct-modal-text">
               Your message has been sent. I&apos;ll get back to you soon.
             </p>
