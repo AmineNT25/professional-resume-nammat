@@ -43,12 +43,20 @@ const projects = [
   },
   {
     idx: "006",
+    name: "Customise Phone",
+    desc: "Interactive phone customization app — pick colors, materials, and accessories to build your ideal device with a live 3D preview.",
+    tech: ["React", "Node.js", "Tailwind", "Vercel"],
+    liveUrl: "https://customise-back-phone.vercel.app/",
+    githubUrl: "https://github.com/AmineNT25/customise-phone",
+  },
+  {
+    idx: "007",
     name: "LocaMat",
     desc: "Moroccan material rental platform — find, compare, and rent construction equipment across Morocco.",
     tech: ["Next.js", "TypeScript", "Tailwind", "Node.js"],
     liveUrl: null as string | null,
     githubUrl: null as string | null,
-    localUrl: "/projects/locamat",
+    localUrl: "/projects/locamat" as string,
   },
 ] as const;
 
