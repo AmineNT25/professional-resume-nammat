@@ -54,9 +54,8 @@ const projects = [
     name: "LocaMat",
     desc: "Moroccan material rental platform — find, compare, and rent construction equipment across Morocco.",
     tech: ["Next.js", "TypeScript", "Tailwind", "Node.js"],
-    liveUrl: null as string | null,
-    githubUrl: null as string | null,
-    localUrl: "/projects/locamat" as string,
+    liveUrl: "https://kreli.vercel.app/",
+    githubUrl: "https://github.com/youssefsina/Kreli",
   },
 ] as const;
 
