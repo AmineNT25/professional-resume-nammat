@@ -1,6 +1,20 @@
 "use client";
 
-const projects = [
+import { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
+
+type Project = {
+  idx: string;
+  name: string;
+  desc: string;
+  tech: readonly string[];
+  liveUrl: string;
+  githubUrl: string;
+  preview: string;
+  previewType: "image" | "video";
+};
+
+const projects: Project[] = [
   {
     idx: "001",
     name: "Healthy Recipe Finder",
@@ -8,58 +22,118 @@ const projects = [
     tech: ["React", "Firebase", "Tailwind", "Netlify"],
     liveUrl: "https://nammathealth.netlify.app/",
     githubUrl: "https://github.com/AmineNT25/Healthy-Recipes-Finder",
+    preview: "/preview-healthy-recipe.png",
+    previewType: "image",
   },
   {
     idx: "002",
-    name: "Bookshelf",
-    desc: "Personal library manager with Open Library integration, reading progress tracking, and yearly goal monitoring.",
-    tech: ["Next.js", "TypeScript", "Supabase", "Tailwind"],
-    liveUrl: "https://bookshelf-nammat.vercel.app/",
-    githubUrl: "https://github.com/AmineNT25/bookshelf",
-  },
-  {
-    idx: "003",
-    name: "FinTrack",
-    desc: "Personal finance dashboard with trend charts, category breakdowns, CSV import, and monthly savings tracking.",
-    tech: ["Next.js", "TypeScript", "Supabase", "Charts"],
-    liveUrl: "https://fintrack-nammat.vercel.app",
-    githubUrl: "https://github.com/AmineNT25/fintrack",
-  },
-  {
-    idx: "004",
     name: "Achkid",
     desc: "Tourism platform for discovering Agadir — local experiences, emergency services, and a provider portal.",
     tech: ["React", "TypeScript", "Tailwind", "Vercel"],
     liveUrl: "https://achkid.vercel.app/",
     githubUrl: "https://github.com/AmineNT25/achkid",
+    preview: "/preview-achkid.png",
+    previewType: "image",
   },
   {
-    idx: "005",
-    name: "Stochos",
-    desc: "Goal-tracking and productivity app to define, monitor, and achieve personal and professional targets.",
-    tech: ["Next.js", "TypeScript", "Tailwind", "Vercel", "SupaBase"],
-    liveUrl: "https://stochos.vercel.app/",
-    githubUrl: "https://github.com/AmineNT25/stochos",
-  },
-  {
-    idx: "006",
+    idx: "003",
     name: "Customise Phone",
     desc: "Interactive phone customization app — pick colors, materials, and accessories to build your ideal device with a live 3D preview.",
     tech: ["Next.js", "Three.js", "Tailwind", "Vercel"],
     liveUrl: "https://customise-back-phone.vercel.app/",
     githubUrl: "https://github.com/AmineNT25/customise-phone",
+    preview: "/preview-customise-phone.mp4",
+    previewType: "video",
   },
   {
-    idx: "007",
-    name: "LocaMat",
+    idx: "004",
+    name: "Kreli",
     desc: "Moroccan material rental platform — find, compare, and rent construction equipment across Morocco.",
     tech: ["Next.js", "TypeScript", "Tailwind", "Node.js"],
     liveUrl: "https://kreli.vercel.app/",
     githubUrl: "https://github.com/youssefsina/Kreli",
+    preview: "/preview-kreli.png",
+    previewType: "image",
   },
-] as const;
+];
+
+function Lightbox({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  if (!mounted) return null;
+
+  return createPortal(
+    <div
+      className="lightbox-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${project.name} preview`}
+    >
+      <div className="lightbox-box" onClick={(e) => e.stopPropagation()}>
+        <button className="lightbox-close" onClick={onClose} aria-label="Close preview">
+          ✕
+        </button>
+        <div className="lightbox-title">
+          <span className="lightbox-idx">{project.idx}</span>
+          {project.name}
+        </div>
+        {project.previewType === "video" ? (
+          <video
+            className="lightbox-media"
+            src={project.preview}
+            autoPlay
+            loop
+            muted
+            playsInline
+            controls
+          />
+        ) : (
+          <div className="lightbox-scroll">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="lightbox-img"
+              src={project.preview}
+              alt={`${project.name} preview`}
+            />
+          </div>
+        )}
+      </div>
+    </div>,
+    document.body
+  );
+}
 
 export default function Projects() {
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+
+  const openPreview = useCallback((project: Project) => {
+    setActiveProject(project);
+  }, []);
+
+  const closePreview = useCallback(() => {
+    setActiveProject(null);
+  }, []);
+
   return (
     <section id="projects" className="sec">
       <div className="wrap">
@@ -76,7 +150,13 @@ export default function Projects() {
                   <div className="card-idx">{project.idx}</div>
                   <h3 className="card-name">{project.name}</h3>
                 </div>
-                <span className="card-arrow" aria-hidden="true">↗</span>
+                <button
+                  className="card-arrow-btn"
+                  onClick={() => openPreview(project)}
+                  aria-label={`Preview ${project.name}`}
+                >
+                  <span aria-hidden="true">↗</span>
+                </button>
               </div>
 
               <p className="card-desc">{project.desc}</p>
@@ -98,11 +178,6 @@ export default function Projects() {
                     Live <span className="ext" aria-hidden="true">↗</span>
                   </a>
                 )}
-                {"localUrl" in project && project.localUrl && (
-                  <a className="card-link" href={project.localUrl}>
-                    View <span className="ext" aria-hidden="true">↗</span>
-                  </a>
-                )}
                 {project.githubUrl && (
                   <a
                     className="card-link"
@@ -118,6 +193,10 @@ export default function Projects() {
           ))}
         </div>
       </div>
+
+      {activeProject && (
+        <Lightbox project={activeProject} onClose={closePreview} />
+      )}
     </section>
   );
 }

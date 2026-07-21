@@ -60,7 +60,7 @@ const Experience = () => {
           </div>
           <div className="exp-list">
             <article className="exp-item gsap-exp">
-              <div className="exp-when">2023 — <span className="now">present</span></div>
+              <div className="exp-when">2024 — <span className="now">July 2026</span></div>
               <div>
                 <h3 className="exp-role">Web Development Technician</h3>
                 <div className="exp-org">OFPPT · CMC Souss Massa</div>
